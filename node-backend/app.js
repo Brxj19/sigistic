@@ -13,6 +13,7 @@ const adminDashboardRouter = require("./routes/adminDashboardRoutes")
 const authRoute = require("./routes/authRoute");
 const userroute = require("./routes/UserRoute")
 const deliveryRoute = require("./routes/deliveryagent")
+const agentPortalRoute = require("./routes/agentPortalRoutes");
 
 const app = express();
 
@@ -58,6 +59,7 @@ app.use("/api/shipments", adminShipmentRouter);
 app.use("/api/agents", adminaAgentRouter)
 app.use("/api/locations", adminLocationRouter)
 app.use("/api/dashboard", adminDashboardRouter);
+app.use("/api/agent", agentPortalRoute);
 app.use('/auth', authRoute);
 app.use('/user', userroute);
 app.use('/deliveryagent', deliveryRoute)

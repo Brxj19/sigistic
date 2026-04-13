@@ -23,6 +23,7 @@ ShipmentHistory.belongsTo(Shipment, { foreignKey: "shipment_id" });
 
 Shipment.belongsTo(Location, { foreignKey: "pickup_location_id", as: "PickupLocation" });
 Shipment.belongsTo(Location, { foreignKey: "delivery_location_id", as: "DeliveryLocation" });
+Shipment.belongsTo(Location, { foreignKey: "current_location_id", as: "CurrentLocation" });
 module.exports = {
   User,
   Agent,

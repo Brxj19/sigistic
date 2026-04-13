@@ -6,8 +6,9 @@ import { Toaster } from 'react-hot-toast';
 // Core Components
 import Navbar from './components/Navbar';
 import Sidebar from './components/layout/Sidebar';
-import ProtectedRoute from './components/ProtectedRoute';
 import RoleRoute from './components/RoleRoute';
+import AgentRoute from './routes/AgentRoute';
+import AgentLayout from './layouts/AgentLayout';
 
 // Auth Pages
 import UserLogin from './pages/auth/UserLogin';
@@ -18,14 +19,17 @@ import VerifyOtp from './pages/auth/VerifyOtp';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import ResetPassword from './pages/auth/ResetPassword';
 import OAuthSuccess from './pages/auth/OAuthSuccess';
+import AgentLogin from './pages/agent/Login';
 
 // User Dashboards & Profiles
 import UserDashboard from './pages/user/UserDashboard';
 import UserProfile from './pages/user/UserProfile';
 
 // Delivery Dashboards & Profiles
-import DeliveryDashboard from './pages/delivery/DeliveryDashboard';
 import DeliveryProfile from './pages/delivery/DeliveryProfile';
+import AgentDashboard from './pages/agent/Dashboard';
+import AgentDeliveries from './pages/agent/Deliveries';
+import AgentDeliveryDetail from './pages/agent/DeliveryDetail';
 
 // Admin Modules
 import AdminDashboard from './pages/AdminDashboard';
@@ -43,7 +47,7 @@ function App() {
   const getHomeRoute = () => {
     if (!isAuthenticated) return '/login';
     if (role === 'admin') return '/admin';
-    if (role === 'delivery') return '/delivery/dashboard';
+    if (role === 'delivery') return '/agent/dashboard';
     return '/dashboard'; // default user dashboard
   };
 
@@ -82,6 +86,7 @@ function App() {
               <Route path="/login" element={<UserLogin />} />
               <Route path="/signup" element={<UserSignup />} />
               <Route path="/staff/login" element={<StaffLogin />} />
+              <Route path="/agent/login" element={<AgentLogin />} />
               <Route path="/delivery/signup" element={<DeliverySignup />} />
               <Route path="/verify-otp" element={<VerifyOtp />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -105,23 +110,25 @@ function App() {
                 }
               />
 
-              {/* Delivery Routes */}
+              {/* Agent Routes */}
               <Route
-                path="/delivery/dashboard"
+                path="/agent"
                 element={
-                  <RoleRoute allowedRoles={['delivery']}>
-                    <DeliveryDashboard />
-                  </RoleRoute>
+                  <AgentRoute>
+                    <AgentLayout />
+                  </AgentRoute>
                 }
-              />
-              <Route
-                path="/delivery/profile"
-                element={
-                  <RoleRoute allowedRoles={['delivery']}>
-                    <DeliveryProfile />
-                  </RoleRoute>
-                }
-              />
+              >
+                <Route path="dashboard" element={<AgentDashboard />} />
+                <Route path="deliveries" element={<AgentDeliveries />} />
+                <Route path="deliveries/:id" element={<AgentDeliveryDetail />} />
+                <Route path="profile" element={<DeliveryProfile />} />
+                <Route index element={<Navigate to="/agent/dashboard" replace />} />
+              </Route>
+
+              {/* Legacy Delivery Redirects */}
+              <Route path="/delivery/dashboard" element={<Navigate to="/agent/dashboard" replace />} />
+              <Route path="/delivery/profile" element={<Navigate to="/agent/profile" replace />} />
 
               {/* Admin Routes */}
               <Route

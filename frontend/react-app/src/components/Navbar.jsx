@@ -19,7 +19,7 @@ const Navbar = ({ onMenuToggle }) => {
     navigate('/login');
   };
 
-  const isAuthPage = ['/login', '/signup', '/staff/login', '/delivery/signup', '/verify-otp', '/forgot-password', '/reset-password'].includes(location.pathname);
+  const isAuthPage = ['/login', '/signup', '/staff/login', '/agent/login', '/delivery/signup', '/verify-otp', '/forgot-password', '/reset-password'].includes(location.pathname);
   const isAdminPath = location.pathname.startsWith('/admin');
 
   return (
@@ -62,7 +62,10 @@ const Navbar = ({ onMenuToggle }) => {
                  </>
                )}
                {role === 'delivery' && (
-                 <NavLink to="/delivery/dashboard" className={({ isActive }) => `text-sm font-semibold transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`}>Dashboard</NavLink>
+                 <>
+                   <NavLink to="/agent/dashboard" className={({ isActive }) => `text-sm font-semibold transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`}>Dashboard</NavLink>
+                   <NavLink to="/agent/deliveries" className={({ isActive }) => `text-sm font-semibold transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`}>Deliveries</NavLink>
+                 </>
                )}
             </div>
          ) : null}
@@ -123,7 +126,7 @@ const Navbar = ({ onMenuToggle }) => {
                     onClick={() => {
                       setIsDropdownOpen(false);
                       if (role === 'admin') navigate('/admin/profile');
-                      else if (role === 'delivery') navigate('/delivery/profile');
+                      else if (role === 'delivery') navigate('/agent/profile');
                       else navigate('/profile');
                     }}
                   >

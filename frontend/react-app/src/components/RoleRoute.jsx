@@ -12,7 +12,7 @@ const RoleRoute = ({ children, allowedRoles }) => {
   if (!allowedRoles.includes(role)) {
     // Redirect based on role
     if (role === 'admin') return <Navigate to="/admin" replace />;
-    if (role === 'delivery') return <Navigate to="/delivery/dashboard" replace />;
+    if (role === 'delivery') return <Navigate to="/agent/dashboard" replace />;
     return <Navigate to="/dashboard" replace />;
   }
 

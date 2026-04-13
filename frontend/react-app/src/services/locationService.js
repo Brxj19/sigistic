@@ -7,6 +7,11 @@ export const getLocations = async (params) => {
   return res.data.data;
 };
 
+export const getPublicLocations = async (params) => {
+  const res = await API.get('/api/locations/public', { params });
+  return res.data.data;
+};
+
 export const getLocationById = async (id) => {
   const res = await API.get(`/api/locations/${id}`);
   return res.data.data;
